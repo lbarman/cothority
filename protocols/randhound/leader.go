@@ -14,7 +14,7 @@ type Leader struct {
 	r3      map[int]*R3         // R3 - " -
 	r4      map[int]*R4         // R4 - " -
 	states  map[int]*poly.State // States for deals and responses from peers
-	invalid map[int]*[]int      // Map to mark invalid shares
+	invalid map[int][]int       // Map to mark invalid shares
 	Done    chan bool           // For signaling that a protocol run is finished
 	Result  chan []byte         // For returning the generated randomness
 }
@@ -26,7 +26,7 @@ func (rh *RandHound) newLeader() (*Leader, error) {
 		r3:      make(map[int]*R3),
 		r4:      make(map[int]*R4),
 		states:  make(map[int]*poly.State),
-		invalid: make(map[int]*[]int),
+		invalid: make(map[int][]int),
 		Done:    make(chan bool, 1),
 		Result:  make(chan []byte),
 	}, nil

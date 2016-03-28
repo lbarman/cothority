@@ -69,9 +69,10 @@ type R3Resp struct {
 // bit-vector that indicates which of the previously transmitted R2 messages are
 // good/bad
 type I4 struct {
-	SID     []byte         // Session identifier
-	R2s     map[int]*R2    // Leader's list of signed R2 messages; empty slices represent missing R2 messages
-	Invalid map[int]*[]int // Map to mark invalid responses
+	SID     []byte      // Session identifier
+	R2s     map[int]*R2 // Leader's list of signed R2 messages; empty slices represent missing R2 messages
+	Invalid []int       // Map to mark invalid responses
+	//Invalid []uint32 // Map to mark invalid responses
 }
 
 type R4 struct {

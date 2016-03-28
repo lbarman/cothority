@@ -258,14 +258,17 @@ func (rh *RandHound) handleR3(r3 WR3) error {
 			}
 		}
 
-		rh.Leader.invalid[r3.Src] = &invalid
+		foo := []int{0, 1, 2, 6, 7}
+		//foo := []uint32{0, 1, 2, 6, 7}
+
+		rh.Leader.invalid[r3.Src] = invalid
 
 		// Continue, once all replies have arrived
 		if len(rh.Leader.r3) == rh.Group.N-1 {
 			rh.Leader.i4 = &I4{
 				SID:     rh.SID,
 				R2s:     rh.Leader.r2,
-				Invalid: rh.Leader.invalid,
+				Invalid: foo,
 			}
 			return rh.sendToChildren(rh.Leader.i4)
 		}
@@ -289,9 +292,11 @@ func (rh *RandHound) handleI4(i4 WI4) error {
 
 	rh.Peer.i4 = &i4.I4
 
+	fmt.Println("Received:", rh.Peer.i4.Invalid)
+
 	// TODO: remove all invalid shares from rh.Peer.shares
-	invalid := rh.Peer.i4.Invalid[rh.nodeIdx()]
-	_ = invalid
+	//invalid := rh.Peer.i4.Invalid[rh.nodeIdx()]
+	//_ = invalid
 
 	rh.Peer.r4 = &R4{
 		Src: rh.nodeIdx(),
